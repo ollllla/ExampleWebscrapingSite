@@ -1,14 +1,21 @@
 import html
+#import socket
 
 from urllib.request import urlopen, Request
 
+
 ACCU_URL = 'https://www.accuweather.com/uk/ua/lviv/324561/weather-forecast/324561'
 
-headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv: 61.0) Gecko/20100101 Firefox61/0', 'Host': 'www.google.com'}
+headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv: 61.0) Gecko/20100101 Firefox61/0'}
+cookie = {'required_cookie': 'ID:183e1f56dabca825'}
 
 accu_request = Request(ACCU_URL, headers=headers)
-time = 500
-accu_page = urlopen(accu_request, timeout=time,).read()
+
+# timeout in seconds
+#timeout = 10
+#socket.setdefaulttimeout(timeout)
+
+accu_page = urlopen(accu_request, timeout=50).read()
 accu_page = str(accu_page)
 
 ACCU_TEMP_TAG = '<span class="large-temp">'
