@@ -26,9 +26,24 @@ for char in rp5_content[rp5_temp_value_start:]:
         break
 
 WINFO_CONTAINER_TAG = '<div class="ArchiveTempFeeling">'
-RP5_WIND_TAG = '<span class="t_0" style="display: block;">'
+RP5_FEEL_TAG = '<span class="t_0" style="display: block;">'
 
-rp5_wind_tag = rp5_content.find(RP5_TEMP_TAG, rp5_content.find(WINFO_CONTAINER_TAG ))
+rp5_feel_tag = rp5_content.find(RP5_FEEL_TAG, rp5_content.find(WINFO_CONTAINER_TAG ))
+
+rp5_feel_tag_size = len(RP5_FEEL_TAG)
+rp5_feel_value_start = rp5_feel_tag + rp5_feel_tag_size
+
+rp5_feel = ''
+for char in rp5_content[rp5_feel_value_start:]:
+    if char != '<':
+        rp5_feel += char
+    else:
+        break
+
+WINFO_CONTAINER_TAG = '<div class="ArchiveInfo">'
+RP5_WIND_TAG = '<span class="wv_1" style="display: none;">'
+
+rp5_wind_tag = rp5_content.find(RP5_WIND_TAG, rp5_content.find(WINFO_CONTAINER_TAG ))
 
 rp5_wind_tag_size = len(RP5_WIND_TAG)
 rp5_wind_value_start = rp5_wind_tag + rp5_wind_tag_size
@@ -39,6 +54,8 @@ for char in rp5_content[rp5_wind_value_start:]:
         rp5_wind += char
     else:
         break
+
 print('RP5: \n')
 print(f'Temperature: {html.unescape(rp5_temp)} \n')
-print(f'TempFeeling: {html.unescape(rp5_wind)} \n')
+print(f'TempFeeling: {html.unescape(rp5_feel)} \n')
+print(f'Wind: {html.unescape(rp5_wind)} \n')
